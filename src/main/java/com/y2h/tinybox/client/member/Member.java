@@ -12,9 +12,12 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.y2h.tinybox.client.member.Grade.MEMBER;
+import static com.y2h.tinybox.common.Active.ACTIVE;
 import static javax.persistence.EnumType.STRING;
 
 @Entity
@@ -62,6 +65,23 @@ public class Member extends TimeBaseEntity implements UserDetails {
         this.grade = grade;
         this.active = active;
         this.roles = roles;
+    }
+
+    /*
+    연관관계 편의 메서드
+     */
+    public static Member createMember(String loginId, String loginPw, String name, String tel, String email, String birth) {
+        return Member.builder()
+                .loginId(loginId)
+                .loginPw(loginPw)
+                .name(name)
+                .tel(tel)
+                .email(email)
+                .birth(birth)
+                .grade(MEMBER)
+                .active(ACTIVE)
+                .roles(Collections.singletonList("MEMBER"))
+                .build();
     }
 
     @Override
