@@ -4,6 +4,7 @@ import com.y2h.tinybox.common.Active;
 import com.y2h.tinybox.common.TimeBaseEntity;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,7 @@ import static javax.persistence.EnumType.STRING;
 
 @Entity
 @Getter
+@ToString
 public class Member extends TimeBaseEntity implements UserDetails {
 
     @Id
@@ -34,7 +36,8 @@ public class Member extends TimeBaseEntity implements UserDetails {
     private String loginPw;
     @Column(nullable = false, updatable = false, length = 50)
     private String name;
-    @Column(unique = true, nullable = false, length = 13)
+//    @Column(unique = true, nullable = false, length = 13)
+    @Column(nullable = false, length = 13)
     private String tel;
     @Column(unique = true, nullable = false, length = 100)
     private String email;
@@ -71,17 +74,17 @@ public class Member extends TimeBaseEntity implements UserDetails {
     연관관계 편의 메서드
      */
     public static Member createMember(String loginId, String loginPw, String name, String tel, String email, String birth) {
-        return Member.builder()
-                .loginId(loginId)
-                .loginPw(loginPw)
-                .name(name)
-                .tel(tel)
-                .email(email)
-                .birth(birth)
-                .grade(MEMBER)
-                .active(ACTIVE)
-                .roles(Collections.singletonList("MEMBER"))
-                .build();
+            return Member.builder()
+                    .loginId(loginId)
+                    .loginPw(loginPw)
+                    .name(name)
+                    .tel(tel)
+                    .email(email)
+                    .birth(birth)
+                    .grade(MEMBER)
+                    .active(ACTIVE)
+                    .roles(Collections.singletonList("MEMBER"))
+                    .build();
     }
 
     @Override

@@ -23,10 +23,10 @@ public class MemberServiceImpl implements MemberService {
             throw new DuplicateException();
         }
 
-        Optional<Long> tel = memberRepository.existTel(dto.getTel());
-        if (tel.isPresent()) {
-            throw new DuplicateException();
-        }
+//        Optional<Long> tel = memberRepository.existTel(dto.getTel());
+//        if (tel.isPresent()) {
+//            throw new DuplicateException();
+//        }
 
         Optional<Long> email = memberRepository.existEmail(dto.getEmail());
         if (email.isPresent()) {
