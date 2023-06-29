@@ -4,6 +4,7 @@ import com.y2h.tinybox.client.member.Member;
 import com.y2h.tinybox.common.TimeBaseEntity;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -18,21 +19,26 @@ public class Event extends TimeBaseEntity {
     @Column(name = "event_id")
     Long id;
 
-    @Column(nullable = false, updatable = false, length = 30)
+    @Setter
+    @Column(nullable = false, length = 30)
     private String title;
 
+    @Setter
     @Column(nullable = false)
     private String content;
 
+    @Setter
     @Column(length = 60)
     private String uploadFileName;
 
+    @Setter
     @Column(length = 60)
     private String storeFileName;
 
     @Column(nullable = false, updatable = false, length = 30)
     private String type;
 
+    @Setter
     @Column(nullable = false)
     private int winner;
 
@@ -44,6 +50,7 @@ public class Event extends TimeBaseEntity {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date endDate;
 
+    @Setter
     @Column(nullable = false)
     private int hit = 0;
 

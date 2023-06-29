@@ -4,28 +4,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
-import java.util.Date;
-
 @Data
-public class CreateEventDto {
+public class UpdateEventDto {
+    private Long id;
     private String title;
     private String content;
     private String uploadFileName;
     private String storeFileName;
-    private String type;
     private int winner;
-    private Date startDate;
-    private Date endDate;
 
     @Builder
-    public CreateEventDto(String title, String content, String uploadFileName, String storeFileName, String type, int winner, Date startDate, Date endDate) {
+    public UpdateEventDto(Long id, String title, String content, String uploadFileName, String storeFileName, int winner) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
-        this.type = type;
         this.winner = winner;
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
+
+
 }
