@@ -42,7 +42,7 @@ public class Movie extends TimeBaseEntity {
 
     }
     @Builder
-    public Movie(Long id, String koreanTitle, String englishTitle, String openDate, String plot, String nation, int runningTime, double avgStar, String posterUploadFileName, String posterStoreFileName) {
+    public Movie(Long id, String koreanTitle, String englishTitle, String openDate, String plot, String nation, int runningTime, double avgStar, String posterUploadFileName, String posterStoreFileName, Active active) {
         this.id = id;
         this.koreanTitle = koreanTitle;
         this.englishTitle = englishTitle;
@@ -53,6 +53,7 @@ public class Movie extends TimeBaseEntity {
         this.avgStar = avgStar;
         this.posterUploadFileName = posterUploadFileName;
         this.posterStoreFileName = posterStoreFileName;
+        this.active = active;
     }
 
 
