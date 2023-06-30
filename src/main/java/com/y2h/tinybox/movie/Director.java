@@ -1,6 +1,7 @@
 package com.y2h.tinybox.movie;
 
 import com.y2h.tinybox.common.TimeBaseEntity;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Column;
@@ -25,6 +26,7 @@ public class Director extends TimeBaseEntity {
     public Director() {
     }
 
+    @Builder
     public Director(Long id, Long movie_id, Long person_id, String type) {
         this.id = id;
         this.movie_id = movie_id;
