@@ -211,7 +211,7 @@ public class MovieServiceTest {
                 .runningTime(150)
                 .avgStar(3.4)
                 .ageLimit("전체관람가")
-                .posterUploadFileName("fileName")
+                .posterStoreFileName("fileName")
                 .active(ACTIVE)
                 .build();
         return movieRepository.save(movie);
