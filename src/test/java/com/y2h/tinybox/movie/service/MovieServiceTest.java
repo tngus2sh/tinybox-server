@@ -184,6 +184,24 @@ public class MovieServiceTest {
         assertThat(results != null && !results.isEmpty()).isTrue();
     }
 
+    @Test
+    @DisplayName("영화 상세정보 조회")
+    void viewMovie() {
+        // given
+        Movie targetMovie = insertMovie();
+        Person targetPerson = insertPerson();
+        insertDirector(targetMovie, targetPerson);
+
+        // when
+        List<MovieDetailDto> results = movieService.getMovieDetail(targetMovie.getId());
+
+        // then
+        for (MovieDetailDto result : results) {
+            System.out.println("result = " + result);
+        }
+        assertThat(results != null && !results.isEmpty()).isTrue();
+    }
+
     private Movie insertMovie() {
         Movie movie = Movie.builder()
                 .koreanTitle("영화좋아")

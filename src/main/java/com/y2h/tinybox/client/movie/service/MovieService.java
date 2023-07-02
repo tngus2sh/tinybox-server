@@ -14,9 +14,11 @@ public interface MovieService {
         전체조회
      */
     List<MovieDto> getMovie(Map<String, String> map);
+
     /*
         상세조회
      */
+    List<MovieDetailDto> getMovieDetail(Long movieId);
 //    List<MovieDetailDto> getByTitle(String title);
 //    List<MovieDetailDto> getByPerson(String name);
 //    List<MovieDetailDto> getByOpenDate(String startDate, String endDate);
