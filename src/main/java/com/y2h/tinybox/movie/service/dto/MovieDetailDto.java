@@ -6,11 +6,13 @@ public class MovieDetailDto {
 
     private String koreanTitle;
     private String englishTitle;
+    private String genre;
     private String openDate;
     private String plot;
     private String nation;
     private int runningTime;
     private double avgStar;
+    private String ageLimit;
     private String posterUploadFileName;
     private String posterStoreFileName;
     private String personName;
@@ -19,14 +21,17 @@ public class MovieDetailDto {
     private String personType;
 
     @Builder
-    public MovieDetailDto(String koreanTitle, String englishTitle, String openDate, String plot, String nation, int runningTime, double avgStar, String posterUploadFileName, String posterStoreFileName, String personName, String personBirth, String personNation, String personType) {
+
+    public MovieDetailDto(String koreanTitle, String englishTitle, String genre, String openDate, String plot, String nation, int runningTime, double avgStar, String ageLimit, String posterUploadFileName, String posterStoreFileName, String personName, String personBirth, String personNation, String personType) {
         this.koreanTitle = koreanTitle;
         this.englishTitle = englishTitle;
+        this.genre = genre;
         this.openDate = openDate;
         this.plot = plot;
         this.nation = nation;
         this.runningTime = runningTime;
         this.avgStar = avgStar;
+        this.ageLimit = ageLimit;
         this.posterUploadFileName = posterUploadFileName;
         this.posterStoreFileName = posterStoreFileName;
         this.personName = personName;
