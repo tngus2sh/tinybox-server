@@ -1,6 +1,7 @@
 package com.y2h.tinybox.admin.event.service.impl;
 
 import com.y2h.tinybox.admin.event.repository.EventRepository;
+import com.y2h.tinybox.admin.event.service.NoContentException;
 import com.y2h.tinybox.admin.event.service.dto.CreateEventDto;
 import com.y2h.tinybox.admin.event.Event;
 import com.y2h.tinybox.admin.event.service.EventService;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,5 +48,28 @@ public class EventServiceImpl implements EventService {
             event.setStoreFileName(dto.getStoreFileName());
             event.setWinner(dto.getWinner());
         }
+    }
+
+    @Override
+    public Event getEventById(Long id) {
+        Optional<Event> findEvent = eventRepository.findById(id);
+
+        if(findEvent.isPresent()) {
+            Event event = findEvent.get();
+            return event;
+        }
+
+        throw new NoContentException();
+    }
+
+    @Override
+    public List<Event> getEvents() {
+        List<Event> events = eventRepository.findAll();
+        return events;
+    }
+
+    @Override
+    public void deleteEventById(Long id) {
+        eventRepository.deleteById(id);
     }
 }
