@@ -4,10 +4,7 @@ import com.y2h.tinybox.common.TimeBaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,10 +13,12 @@ public class Director extends TimeBaseEntity {
     @GeneratedValue
     @Column(name = "director_id")
     Long id;
-    @Column
-    Long movie_id;
-    @Column
-    Long person_id;
+    @JoinColumn(name = "movie_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    Movie movie;
+    @JoinColumn(name = "person_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    Person person;
     @Column(length = 10)
     String type;
 
@@ -27,10 +26,10 @@ public class Director extends TimeBaseEntity {
     }
 
     @Builder
-    public Director(Long id, Long movie_id, Long person_id, String type) {
+    public Director(Long id, Movie movie, Person person, String type) {
         this.id = id;
-        this.movie_id = movie_id;
-        this.person_id = person_id;
+        this.movie = movie;
+        this.person = person;
         this.type = type;
     }
 }

@@ -8,14 +8,17 @@ import com.y2h.tinybox.client.movie.repository.MovieRepository;
 import com.y2h.tinybox.client.movie.repository.PersonRepository;
 import com.y2h.tinybox.client.movie.service.MovieService;
 import com.y2h.tinybox.client.movie.service.dto.MovieDetailDto;
+import com.y2h.tinybox.client.movie.service.dto.MovieDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.y2h.tinybox.common.Active.ACTIVE;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -34,46 +37,140 @@ public class MovieServiceTest {
     private DirectorRepository directorRepository;
 
     @Test
-    @DisplayName("영화검색#제목#결과없음")
-    void noContentMovieByTitle() {
+    @DisplayName("영화검색#제목")
+    void movieByTitle() {
         //given
         Movie targetMovie = insertMovie();
+        Person targetPerson = insertPerson();
+        insertDirector(targetMovie, targetPerson);
 
         //when
-        MovieDetailDto dto = MovieDetailDto.builder()
-                .koreanTitle("테스트중입니다.")
-                .build();
+        List<MovieDto> results = movieService.getMovieByTitle("영화좋아");
 
         //then
-        // 검색 결과 없다는 오류?
-//        assertThatThrownBy(() -> movieService.searchByTitle(dto)
-//                .isInstatnceOf());
+        for (MovieDto result : results) {
+            System.out.println("result = " + result.toString());
+        }
+        assertThat(results != null && !results.isEmpty()).isTrue();
     }
 
     @Test
-    @DisplayName("영화검색#사람#결과없음")
-    void noContentMovieByPerson() {
+    @DisplayName("영화검색#사람")
+    void movieByPerson() {
         //given
         Movie targetMovie = insertMovie();
+        Person targetPerson = insertPerson();
+        insertDirector(targetMovie, targetPerson);
 
         //when
-        MovieDetailDto dto = MovieDetailDto.builder()
-                .personName("소편재")
-                .build();
+        List<MovieDetailDto> results = movieService.getMovieByPerson("훙솽솽");
 
         //then
-        // 검색 결과 없음
+        for (MovieDetailDto result : results) {
+            System.out.println("result = " + result.toString());
+        }
+        assertThat(results != null && !results.isEmpty()).isTrue();
+    }
+
+    @Test
+    @DisplayName("영화검색#개봉일")
+    void movieByOpenDate() {
+        //given
+        Movie targetMovie = insertMovie();
+        Person targetPerson = insertPerson();
+        insertDirector(targetMovie, targetPerson);
+
+        //when
+        List<MovieDto> results = movieService.getMovieByOpenDate("2023.06.23", "2023.07.01");
+
+        //then
+        for (MovieDto result : results) {
+            System.out.println("result = " + result);
+        }
+        assertThat(results != null && !results.isEmpty()).isTrue();
+    }
+
+    @Test
+    @DisplayName("영화검색#국가")
+    void movieByNation() {
+        //given
+        Movie targetMovie = insertMovie();
+        Person targetPerson = insertPerson();
+        insertDirector(targetMovie, targetPerson);
+
+        //when
+        List<MovieDto> results = movieService.getMovieByNation("한국");
+
+        //then
+        for (MovieDto result : results) {
+            System.out.println("result = " + result);
+        }
+        assertThat(results != null && !results.isEmpty()).isTrue();
+    }
+    @Test
+    @DisplayName("영화검색#평균별점")
+    void movieByAvgStar() {
+        //given
+        Movie targetMovie = insertMovie();
+        Person targetPerson = insertPerson();
+        insertDirector(targetMovie, targetPerson);
+
+        //when
+        List<MovieDto> results = movieService.getMovieByAvgStar(3.0);
+
+        //then
+        for (MovieDto result : results) {
+            System.out.println("result = " + result);
+        }
+        assertThat(results != null && !results.isEmpty()).isTrue();
+    }
+    @Test
+    @DisplayName("영화검색#장르")
+    void movieByGenre() {
+        //given
+        Movie targetMovie = insertMovie();
+        Person targetPerson = insertPerson();
+        insertDirector(targetMovie, targetPerson);
+
+        //when
+        List<MovieDto> results = movieService.getMovieByGenre("멜로");
+
+        //then
+        for (MovieDto result : results) {
+            System.out.println("result = " + result);
+        }
+        assertThat(results != null && !results.isEmpty()).isTrue();
+    }
+
+    @Test
+    @DisplayName("영화검색#제한연령")
+    void movieByAgeLimit() {
+        //given
+        Movie targetMovie = insertMovie();
+        Person targetPerson = insertPerson();
+        insertDirector(targetMovie, targetPerson);
+
+        //when
+        List<MovieDto> results = movieService.getMovieByAgeLimit("전체관람가");
+
+        //then
+        for (MovieDto result : results) {
+            System.out.println("result = " + result);
+        }
+        assertThat(results != null && !results.isEmpty()).isTrue();
     }
 
     private Movie insertMovie() {
         Movie movie = Movie.builder()
                 .koreanTitle("영화좋아")
                 .englishTitle("like movie")
+                .genre("로맨스, 멜로")
                 .openDate("2023.06.30")
                 .plot("6월의 마지막을 향해 가는...")
                 .nation("한국")
                 .runningTime(150)
                 .avgStar(3.4)
+                .ageLimit("전체관람가")
                 .posterUploadFileName("fileName")
                 .active(ACTIVE)
                 .build();
@@ -90,10 +187,10 @@ public class MovieServiceTest {
         return personRepository.save(person);
     }
 
-    private Director insertDirector() {
-
-
+    private Director insertDirector(Movie movie, Person person) {
         Director director = Director.builder()
+                .movie(movie)
+                .person(person)
                 .type("배우")
                 .build();
         return directorRepository.save(director);
