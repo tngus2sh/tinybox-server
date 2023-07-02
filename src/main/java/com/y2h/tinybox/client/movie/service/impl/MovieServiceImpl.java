@@ -1,11 +1,11 @@
-package com.y2h.tinybox.movie.service.impl;
+package com.y2h.tinybox.client.movie.service.impl;
 
-import com.y2h.tinybox.movie.Director;
-import com.y2h.tinybox.movie.Movie;
-import com.y2h.tinybox.movie.Person;
-import com.y2h.tinybox.movie.repository.MovieRepository;
-import com.y2h.tinybox.movie.service.MovieService;
-import com.y2h.tinybox.movie.service.dto.MovieDetailDto;
+import com.y2h.tinybox.client.movie.Movie;
+import com.y2h.tinybox.client.movie.Person;
+import com.y2h.tinybox.client.movie.repository.MovieRepository;
+import com.y2h.tinybox.client.movie.service.MovieService;
+import com.y2h.tinybox.client.movie.Director;
+import com.y2h.tinybox.client.movie.service.dto.MovieDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

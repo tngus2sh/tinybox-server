@@ -1,6 +1,6 @@
-package com.y2h.tinybox.movie.service;
+package com.y2h.tinybox.client.movie.service;
 
-import com.y2h.tinybox.movie.service.dto.MovieDetailDto;
+import com.y2h.tinybox.client.movie.service.dto.MovieDetailDto;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

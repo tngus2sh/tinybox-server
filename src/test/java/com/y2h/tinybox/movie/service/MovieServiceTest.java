@@ -1,12 +1,13 @@
 package com.y2h.tinybox.movie.service;
 
-import com.y2h.tinybox.movie.Director;
-import com.y2h.tinybox.movie.Movie;
-import com.y2h.tinybox.movie.Person;
-import com.y2h.tinybox.movie.repository.DirectorRepository;
-import com.y2h.tinybox.movie.repository.MovieRepository;
-import com.y2h.tinybox.movie.repository.PersonRepository;
-import com.y2h.tinybox.movie.service.dto.MovieDetailDto;
+import com.y2h.tinybox.client.movie.Director;
+import com.y2h.tinybox.client.movie.Movie;
+import com.y2h.tinybox.client.movie.Person;
+import com.y2h.tinybox.client.movie.repository.DirectorRepository;
+import com.y2h.tinybox.client.movie.repository.MovieRepository;
+import com.y2h.tinybox.client.movie.repository.PersonRepository;
+import com.y2h.tinybox.client.movie.service.MovieService;
+import com.y2h.tinybox.client.movie.service.dto.MovieDetailDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

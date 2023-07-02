@@ -1,4 +1,4 @@
-package com.y2h.tinybox.movie.service.dto;
+package com.y2h.tinybox.client.movie.service.dto;
 
 import lombok.Builder;
 

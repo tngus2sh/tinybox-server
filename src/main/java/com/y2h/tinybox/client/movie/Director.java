@@ -1,4 +1,4 @@
-package com.y2h.tinybox.movie;
+package com.y2h.tinybox.client.movie;
 
 import com.y2h.tinybox.common.TimeBaseEntity;
 import lombok.Builder;
