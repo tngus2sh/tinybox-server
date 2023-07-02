@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -20,53 +21,51 @@ public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
 
     @Override
-    public List<MovieDto> getMovie() {
-        List<Movie> results = movieRepository.getMovies();
+    public List<MovieDto> getMovie(Map<String, String> map) {
+        List<Movie> results = null;
+        String key = map.get("key");
+        String word = map.get("wor");
+        // key가 없을 때 전체 검색
+        if (key == null) {
+            results = movieRepository.getMovies();
+        }
+        // key가 제목 검색일 때
+        else if (key == "제목") {
+            results = movieRepository.getMoviesByTitle(key);
+        }
+        // key가 배우 검색일 때
+        else if (key == "배우/감독") {
+            results = movieRepository.getMoviesByPerson(key);
+        }
+        // key가 개봉기간 검색일 때
+        else if (key == "개봉기간") {
+            String period = map.get("period");
+            results = movieRepository.getMoviesByOpenDate(word, period);
+        }
+        // key가 국가 검색일 때
+        else if (key == "국가") {
+            results = movieRepository.getMoviesByNation(key);
+        }
+        // key가 평균별점 검색일 때
+        else if (key == "평균별점") {
+            results = movieRepository.getMoviesByAvgStar(Double.parseDouble(word));
+        }
+        // key가 장르 검색일 때
+        else if (key == "장르") {
+            results = movieRepository.getMoviesByGenre(word);
+        }
+        // key가 연령제한 검색일 때
+        else if (key == "연령제한") {
+            results = movieRepository.getMoviesByAgeLimit(word);
+        }
         return getMovieList(results);
     }
 
-    @Override
-    public List<MovieDto> getMovieByTitle(String title) {
-        List<Movie> results = movieRepository.getMoviesByTitle(title);
-        return getMovieList(results);
-    }
-
-    @Override
-    public List<MovieDto> getMovieByPerson(String name) {
-        List<Movie> results = movieRepository.getMoviesByPerson(name);
-        return getMovieList(results);
-    }
-
-    @Override
-    public List<MovieDto> getMovieByOpenDate(String startDate, String endDate) {
-        List<Movie> results = movieRepository.getMoviesByOpenDate(startDate, endDate);
-        return getMovieList(results);
-    }
-
-    @Override
-    public List<MovieDto> getMovieByNation(String nation) {
-        List<Movie> results = movieRepository.getMoviesByNation(nation);
-        return getMovieList(results);
-    }
-
-    @Override
-    public List<MovieDto> getMovieByAvgStar(double avgStar) {
-        List<Movie> results = movieRepository.getMoviesByAvgStar(avgStar);
-        return getMovieList(results);
-    }
-
-    @Override
-    public List<MovieDto> getMovieByGenre(String genre) {
-        List<Movie> results = movieRepository.getMoviesByGenre(genre);
-        return getMovieList(results);
-    }
-
-    @Override
-    public List<MovieDto> getMovieByAgeLimit(String ageLimit) {
-        List<Movie> results = movieRepository.getMoviesByAgeLimit(ageLimit);
-        return getMovieList(results);
-    }
-
+    /**
+     * 영화 리스트 반환 - 전체조회
+     * @param results List<Movie> 형태의 인자
+     * @return List<MovieDto>
+     */
     public List<MovieDto> getMovieList(List<Movie> results) {
         List<MovieDto> movieDtos = new ArrayList<>();
         for (Movie result : results) {
@@ -86,90 +85,9 @@ public class MovieServiceImpl implements MovieService {
         }
         return movieDtos;
     }
-//
-//    /**
-//     * 제목으로 영화 찾기
-//     *
-//     * @param title 제목
-//     * @return List<MovieDetailDto> 영화 리스트
-//     */
-//    @Override
-//    public List<MovieDetailDto> getByTitle(String title) {
-////        List<Object[]> results = movieRepository.getMoviesByTitle(title);
-////        return getMovieList(results);
-//        return null;
-//    }
-//
-//    /**
-//     * 사람으로 영화 찾기
-//     * @param name 사람(배우, 감독)
-//     * @return List<MovieDetailDto> 영화 리스트
-//     */
-//    @Override
-//    public List<MovieDetailDto> getByPerson(String name) {
-//        List<Object[]> results = movieRepository.getMoviesByPerson(name);
-//        return getMoviesList(results);
-//    }
-//
-//    /**
-//     * 개봉기간으로 영화 찾기
-//     * @param startDate 개봉기간 시작
-//     * @param endDate 개봉기간 끝
-//     * @return List<MovieDetailDto> 영화 리스트
-//     */
-//    @Override
-//    public List<MovieDetailDto> getByOpenDate(String startDate, String endDate) {
-//        List<Object[]> results = movieRepository.getMoviesByOpenDate(startDate, endDate);
-//        return getMoviesList(results);
-//    }
-//
-//    /**
-//     * 개봉 나라로 영화 찾기
-//     * @param nation 나라
-//     * @return List<MovieDetailDto> 영화 리스트
-//     */
-//    @Override
-//    public List<MovieDetailDto> getByNation(String nation) {
-//        List<Object[]> results = movieRepository.getMoviesByNation(nation);
-//        return getMoviesList(results);
-//    }
-//
-//    /**
-//     * 평균 별점으로 영화 찾기
-//     * @param avgStar 평균 별점
-//     * @return List<MovieDetailDto> 영화 리스트
-//     */
-//    @Override
-//    public List<MovieDetailDto> getByAvgStar(double avgStar) {
-//        List<Object[]> results = movieRepository.getMoviesByAvgStar(avgStar);
-//        return getMoviesList(results);
-//    }
-//
-//    /**
-//     * 장르로 영화 찾기
-//     * @param genre 장르
-//     * @return List<MovieDetailDto> 영화 리스트
-//     */
-//    @Override
-//    public List<MovieDetailDto> getByGenre(String genre) {
-//        List<Object[]> results = movieRepository.getMoviesByGenre(genre);
-//        return getMoviesList(results);
-//    }
-//
-//    /**
-//     * 나이 제한으로 영화 찾기
-//     * @param ageLimit 나이 제한
-//     * @return List<MovieDetailDto> 영화 리스트
-//     */
-//    @Override
-//    public List<MovieDetailDto> getByAgeLimit(String ageLimit) {
-//        List<Object[]> results = movieRepository.getMoviesByAgeLimit(ageLimit);
-//        return getMoviesList(results);
-//    }
-
     /**
-     * 영화 리스트 반환
-     * @param results List<Object[]> 형태의 리스트 인자
+     * 영화 리스트 반환 - 상세조회
+     * @param results List<Object[]> 형태의 인자
      * @return List<MovieDetailDto>
      */
     public List<MovieDetailDto> getMoviesList(List<Object[]> results) {
