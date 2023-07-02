@@ -32,9 +32,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<MovieDetailDto> getMovieByPerson(String name) {
-        List<Object[]> results = movieRepository.getMoviesByPerson(name);
-        return getMoviesList(results);
+    public List<MovieDto> getMovieByPerson(String name) {
+        List<Movie> results = movieRepository.getMoviesByPerson(name);
+        return getMovieList(results);
     }
 
     @Override

@@ -31,8 +31,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
      * @param name 사람 이름
      * @return List<Object[]>
      */
-    @Query("select distinct m, d, p from Director d right join d.movie m left join d.person p where p.name = :name")
-    List<Object[]> getMoviesByPerson(@Param("name") String name);
+    @Query("select distinct m from Director d right join d.movie m left join d.person p where p.name = :name")
+    List<Movie> getMoviesByPerson(@Param("name") String name);
 
     /**
      * 개봉 기간으로 조회
