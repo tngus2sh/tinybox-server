@@ -8,6 +8,7 @@ import com.y2h.tinybox.client.movie.service.MovieService;
 import com.y2h.tinybox.client.movie.Director;
 import com.y2h.tinybox.client.movie.service.dto.MovieDetailDto;
 import com.y2h.tinybox.client.movie.service.dto.MovieDto;
+import com.y2h.tinybox.client.movie.service.dto.PersonDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -75,33 +76,37 @@ public class MovieServiceImpl implements MovieService {
      * @return List<MovieDetailDto>
      */
     @Override
-    public List<MovieDetailDto> getMovieDetail(Long movieId) {
+    public MovieDetailDto getMovieDetail(Long movieId) {
         Movie movie = movieRepository.getMoviesById(movieId);
         List<Object[]> results = directorRepository.getPersonDirectors(movie);
 
-        List<MovieDetailDto> movieDetailDtos = new ArrayList<>();
+        MovieDetailDto movieDetailDto = new MovieDetailDto();
+        List<PersonDto> personDtos = new ArrayList<>();
         for (Object[] result : results) {
             Director director = (Director) result[0];
             Person person = (Person) result[1];
 
-            movieDetailDtos.add(MovieDetailDto.builder()
-                    .koreanTitle(movie.getKoreanTitle())
-                    .englishTitle(movie.getEnglishTitle())
-                    .openDate(movie.getOpenDate())
-                    .genre(movie.getGenre())
-                    .plot(movie.getPlot())
-                    .nation(movie.getNation())
-                    .runningTime(movie.getRunningTime())
-                    .avgStar(movie.getAvgStar())
-                    .ageLimit(movie.getAgeLimit())
-                    .posterStoreFileName(movie.getPosterStoreFileName())
-                    .personName(person.getName())
-                    .personBirth(person.getBirth())
-                    .personNation(person.getNation())
-                    .personType(director.getType())
+            personDtos.add(PersonDto.builder()
+                    .name(person.getName())
+                    .birth(person.getBirth())
+                    .nation(person.getNation())
+                    .type(director.getType())
                     .build());
         }
-        return movieDetailDtos;
+        movieDetailDto = (MovieDetailDto.builder()
+                .koreanTitle(movie.getKoreanTitle())
+                .englishTitle(movie.getEnglishTitle())
+                .openDate(movie.getOpenDate())
+                .genre(movie.getGenre())
+                .plot(movie.getPlot())
+                .nation(movie.getNation())
+                .runningTime(movie.getRunningTime())
+                .avgStar(movie.getAvgStar())
+                .ageLimit(movie.getAgeLimit())
+                .posterStoreFileName(movie.getPosterStoreFileName())
+                .personDtoList(personDtos)
+                .build());
+        return movieDetailDto;
     }
 
     /**
@@ -127,36 +132,5 @@ public class MovieServiceImpl implements MovieService {
                     .build());
         }
         return movieDtos;
-    }
-    /**
-     * 영화 리스트 반환 - 상세조회
-     * @param results List<Object[]> 형태의 인자
-     * @return List<MovieDetailDto>
-     */
-    public List<MovieDetailDto> getMoviesList(List<Object[]> results) {
-        List<MovieDetailDto> movieDetailDtos = new ArrayList<>();
-        for (Object[] result : results) {
-            Movie movie = (Movie) result[0];
-            Director director = (Director) result[1];
-            Person person = (Person) result[2];
-
-            movieDetailDtos.add(MovieDetailDto.builder()
-                    .koreanTitle(movie.getKoreanTitle())
-                    .englishTitle(movie.getEnglishTitle())
-                    .openDate(movie.getOpenDate())
-                    .genre(movie.getGenre())
-                    .plot(movie.getPlot())
-                    .nation(movie.getNation())
-                    .runningTime(movie.getRunningTime())
-                    .avgStar(movie.getAvgStar())
-                    .ageLimit(movie.getAgeLimit())
-                    .posterStoreFileName(movie.getPosterStoreFileName())
-                    .personName(person.getName())
-                    .personBirth(person.getBirth())
-                    .personNation(person.getNation())
-                    .personType(director.getType())
-                    .build());
-        }
-        return movieDetailDtos;
     }
 }

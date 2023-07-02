@@ -18,13 +18,6 @@ public interface MovieService {
     /*
         상세조회
      */
-    List<MovieDetailDto> getMovieDetail(Long movieId);
-//    List<MovieDetailDto> getByTitle(String title);
-//    List<MovieDetailDto> getByPerson(String name);
-//    List<MovieDetailDto> getByOpenDate(String startDate, String endDate);
-//    List<MovieDetailDto> getByNation(String nation);
-//    List<MovieDetailDto> getByAvgStar(double avgStar);
-//    List<MovieDetailDto> getByGenre(String genre);
-//    List<MovieDetailDto> getByAgeLimit(String ageLimit);
+    MovieDetailDto getMovieDetail(Long movieId);
 
 }

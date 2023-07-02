@@ -2,6 +2,8 @@ package com.y2h.tinybox.client.movie.service.dto;
 
 import lombok.Builder;
 
+import java.util.List;
+
 public class MovieDetailDto {
 
     private String koreanTitle;
@@ -15,13 +17,13 @@ public class MovieDetailDto {
     private String ageLimit;
     private String posterUploadFileName;
     private String posterStoreFileName;
-    private String personName;
-    private String personBirth;
-    private String personNation;
-    private String personType;
+    private List<PersonDto> personDtoList;
+
+    public MovieDetailDto() {
+    }
 
     @Builder
-    public MovieDetailDto(String koreanTitle, String englishTitle, String genre, String openDate, String plot, String nation, int runningTime, double avgStar, String ageLimit, String posterUploadFileName, String posterStoreFileName, String personName, String personBirth, String personNation, String personType) {
+    public MovieDetailDto(String koreanTitle, String englishTitle, String genre, String openDate, String plot, String nation, int runningTime, double avgStar, String ageLimit, String posterUploadFileName, String posterStoreFileName, List<PersonDto> personDtoList) {
         this.koreanTitle = koreanTitle;
         this.englishTitle = englishTitle;
         this.genre = genre;
@@ -33,10 +35,7 @@ public class MovieDetailDto {
         this.ageLimit = ageLimit;
         this.posterUploadFileName = posterUploadFileName;
         this.posterStoreFileName = posterStoreFileName;
-        this.personName = personName;
-        this.personBirth = personBirth;
-        this.personNation = personNation;
-        this.personType = personType;
+        this.personDtoList = personDtoList;
     }
 
     @Override
@@ -53,10 +52,7 @@ public class MovieDetailDto {
         sb.append(", ageLimit='").append(ageLimit).append('\'');
         sb.append(", posterUploadFileName='").append(posterUploadFileName).append('\'');
         sb.append(", posterStoreFileName='").append(posterStoreFileName).append('\'');
-        sb.append(", personName='").append(personName).append('\'');
-        sb.append(", personBirth='").append(personBirth).append('\'');
-        sb.append(", personNation='").append(personNation).append('\'');
-        sb.append(", personType='").append(personType).append('\'');
+        sb.append(", personDtoList=").append(personDtoList);
         sb.append('}');
         return sb.toString();
     }

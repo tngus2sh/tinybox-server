@@ -193,13 +193,11 @@ public class MovieServiceTest {
         insertDirector(targetMovie, targetPerson);
 
         // when
-        List<MovieDetailDto> results = movieService.getMovieDetail(targetMovie.getId());
+        MovieDetailDto results = movieService.getMovieDetail(targetMovie.getId());
 
         // then
-        for (MovieDetailDto result : results) {
-            System.out.println("result = " + result);
-        }
-        assertThat(results != null && !results.isEmpty()).isTrue();
+        System.out.println("results = " + results);
+        assertThat(results != null).isTrue();
     }
 
     private Movie insertMovie() {

@@ -35,7 +35,7 @@ public class MovieApiController {
 
     @ApiOperation(value = "상세 영화 정보 출력")
     @GetMapping("/{movieId}")
-    public List<MovieDetailDto> viewMovie(@PathVariable("movieId") Long movieId) {
+    public MovieDetailDto viewMovie(@PathVariable("movieId") Long movieId) {
         return movieService.getMovieDetail(movieId);
     }
 }
