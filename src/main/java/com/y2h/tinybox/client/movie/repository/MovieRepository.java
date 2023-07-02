@@ -11,6 +11,12 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     /*
         영화 검색 - 전체 목록 조회
      */
+    /**
+     * 영화 전체 목록 조회
+     * @return List<Movie>
+     */
+    @Query("select m from Movie m")
+    List<Movie> getMovies();
 
     /**
      * 영화 제목으로 검색

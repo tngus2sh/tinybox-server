@@ -12,6 +12,7 @@ public interface MovieService {
     /*
         전체조회
      */
+    List<MovieDto> getMovie();
     List<MovieDto> getMovieByTitle(String title);
     List<MovieDetailDto> getMovieByPerson(String name);
     List<MovieDto> getMovieByOpenDate(String startDate, String endDate);

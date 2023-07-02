@@ -20,6 +20,12 @@ public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
 
     @Override
+    public List<MovieDto> getMovie() {
+        List<Movie> results = movieRepository.getMovies();
+        return getMovieList(results);
+    }
+
+    @Override
     public List<MovieDto> getMovieByTitle(String title) {
         List<Movie> results = movieRepository.getMoviesByTitle(title);
         return getMovieList(results);
