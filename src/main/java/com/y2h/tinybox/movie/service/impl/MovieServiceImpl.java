@@ -27,7 +27,6 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<MovieDetailDto> getByTitle(String title) {
         List<Object[]> results = movieRepository.getMoviesByTitle(title);
-
         return getMovieList(results);
     }
 
