@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.y2h.tinybox.common.Active.ACTIVE;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -45,7 +47,10 @@ public class MovieServiceTest {
         insertDirector(targetMovie, targetPerson);
 
         //when
-        List<MovieDto> results = movieService.getMovieByTitle("영화좋아");
+        Map<String ,String> map = new HashMap<>();
+        map.put("key", "제목");
+        map.put("word", "영화좋아");
+        List<MovieDto> results = movieService.getMovie(map);
 
         //then
         for (MovieDto result : results) {
@@ -63,10 +68,13 @@ public class MovieServiceTest {
         insertDirector(targetMovie, targetPerson);
 
         //when
-        List<MovieDetailDto> results = movieService.getMovieByPerson("훙솽솽");
+        Map<String , String> map = new HashMap<>();
+        map.put("key", "배우/감독");
+        map.put("word", "훙솽솽");
+        List<MovieDto> results = movieService.getMovie(map);
 
         //then
-        for (MovieDetailDto result : results) {
+        for (MovieDto result : results) {
             System.out.println("result = " + result.toString());
         }
         assertThat(results != null && !results.isEmpty()).isTrue();
@@ -81,7 +89,11 @@ public class MovieServiceTest {
         insertDirector(targetMovie, targetPerson);
 
         //when
-        List<MovieDto> results = movieService.getMovieByOpenDate("2023.06.23", "2023.07.01");
+        Map<String , String> map = new HashMap<>();
+        map.put("key", "개봉기간");
+        map.put("word", "2023.06.23");
+        map.put("period", "2023.07.01");
+        List<MovieDto> results = movieService.getMovie(map);
 
         //then
         for (MovieDto result : results) {
@@ -99,7 +111,10 @@ public class MovieServiceTest {
         insertDirector(targetMovie, targetPerson);
 
         //when
-        List<MovieDto> results = movieService.getMovieByNation("한국");
+        Map<String , String> map = new HashMap<>();
+        map.put("key", "국가");
+        map.put("word", "한국");
+        List<MovieDto> results = movieService.getMovie(map);
 
         //then
         for (MovieDto result : results) {
@@ -116,7 +131,10 @@ public class MovieServiceTest {
         insertDirector(targetMovie, targetPerson);
 
         //when
-        List<MovieDto> results = movieService.getMovieByAvgStar(3.0);
+        Map<String , String> map = new HashMap<>();
+        map.put("key", "평균별점");
+        map.put("word", "3.0");
+        List<MovieDto> results = movieService.getMovie(map);
 
         //then
         for (MovieDto result : results) {
@@ -133,7 +151,10 @@ public class MovieServiceTest {
         insertDirector(targetMovie, targetPerson);
 
         //when
-        List<MovieDto> results = movieService.getMovieByGenre("멜로");
+        Map<String , String> map = new HashMap<>();
+        map.put("key", "장르");
+        map.put("word", "멜로");
+        List<MovieDto> results = movieService.getMovie(map);
 
         //then
         for (MovieDto result : results) {
@@ -151,7 +172,10 @@ public class MovieServiceTest {
         insertDirector(targetMovie, targetPerson);
 
         //when
-        List<MovieDto> results = movieService.getMovieByAgeLimit("전체관람가");
+        Map<String , String> map = new HashMap<>();
+        map.put("key", "연령제한");
+        map.put("word", "전체관람가");
+        List<MovieDto> results = movieService.getMovie(map);
 
         //then
         for (MovieDto result : results) {

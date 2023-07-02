@@ -31,7 +31,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
      * @param name 사람 이름
      * @return List<Object[]>
      */
-    @Query("select distinct m from Director d right join d.movie m left join d.person p where p.name = :name")
+    @Query("select distinct m from Director d right join d.movie m left join d.person p where p.name=:name")
     List<Movie> getMoviesByPerson(@Param("name") String name);
 
     /**
@@ -48,7 +48,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
      * @param nation 나라
      * @return List<Movie>
      */
-    @Query("select m from Movie m where m.nation = :nation")
+    @Query("select m from Movie m where m.nation=:nation")
     List<Movie> getMoviesByNation(@Param("nation") String nation);
 
     /**
@@ -72,7 +72,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
      * @param ageLimit 나이제한
      * @return List<Movie>
      */
-    @Query("select m, d, p from Director d right join d.movie m left join d.person p where m.ageLimit like %:ageLimit%")
+    @Query("select m from Movie m where m.ageLimit like %:ageLimit%")
     List<Movie> getMoviesByAgeLimit(@Param("ageLimit") String ageLimit);
 
 }

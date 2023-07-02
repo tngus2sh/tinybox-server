@@ -24,38 +24,38 @@ public class MovieServiceImpl implements MovieService {
     public List<MovieDto> getMovie(Map<String, String> map) {
         List<Movie> results = null;
         String key = map.get("key");
-        String word = map.get("wor");
+        String word = map.get("word");
         // key가 없을 때 전체 검색
         if (key == null) {
             results = movieRepository.getMovies();
         }
         // key가 제목 검색일 때
-        else if (key == "제목") {
-            results = movieRepository.getMoviesByTitle(key);
+        else if (key.equals("제목")) {
+            results = movieRepository.getMoviesByTitle(word);
         }
         // key가 배우 검색일 때
-        else if (key == "배우/감독") {
-            results = movieRepository.getMoviesByPerson(key);
+        else if (key.equals("배우/감독")) {
+            results = movieRepository.getMoviesByPerson(word);
         }
         // key가 개봉기간 검색일 때
-        else if (key == "개봉기간") {
+        else if (key.equals("개봉기간")) {
             String period = map.get("period");
             results = movieRepository.getMoviesByOpenDate(word, period);
         }
         // key가 국가 검색일 때
-        else if (key == "국가") {
-            results = movieRepository.getMoviesByNation(key);
+        else if (key.equals("국가")) {
+            results = movieRepository.getMoviesByNation(word);
         }
         // key가 평균별점 검색일 때
-        else if (key == "평균별점") {
+        else if (key.equals("평균별점")) {
             results = movieRepository.getMoviesByAvgStar(Double.parseDouble(word));
         }
         // key가 장르 검색일 때
-        else if (key == "장르") {
+        else if (key.equals("장르")) {
             results = movieRepository.getMoviesByGenre(word);
         }
         // key가 연령제한 검색일 때
-        else if (key == "연령제한") {
+        else if (key.equals("연령제한")) {
             results = movieRepository.getMoviesByAgeLimit(word);
         }
         return getMovieList(results);
